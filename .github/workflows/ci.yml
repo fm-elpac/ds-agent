@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - run: deno fmt --check
+
+      # TODO
+
+      # toolbox
+      - run: |
+          sudo apt-get update && \
+          sudo apt-get -y install podman-toolbox
+      - run: echo "SHELL=/usr/bin/bash" >> "$GITHUB_ENV"
+
+      # ds-agent-src.tar
+      - run: make ds-agent-src
+
+      # AUR (ArchLinux)
+      - run: toolbox create -y -i quay.io/toolbx/arch-toolbox arch
+      - run: |
+          toolbox run -c arch \
+          sudo pacman -Syu --noconfirm
+      - run: |
+          toolbox run -c arch \
+          sudo pacman -S --noconfirm deno nodejs pnpm
+      - run: |
+          cd aur && \
+          toolbox run -c arch \
+          makepkg
+      # upload pkg
+      - uses: actions/upload-artifact@v6
+        with:
+          name: ds-agent-0.1.0a1-1-x86_64.pkg.tar.zst
+          path: aur/ds-agent-0.1.0a1-1-x86_64.pkg.tar.zst

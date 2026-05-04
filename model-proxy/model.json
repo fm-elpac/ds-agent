@@ -1,0 +1,15 @@
+{
+  "api_key": {
+    "deepseek": "your-deepseek-api-key-here"
+  },
+  "model": {
+    "deepseek": {
+      "url": "https://api.deepseek.com",
+      "args": {
+        "model": "deepseek-v4-flash",
+        "temperature": 0.7,
+        "max_tokens": 32768
+      }
+    }
+  }
+}

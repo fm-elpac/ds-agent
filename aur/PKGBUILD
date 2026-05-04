@@ -1,0 +1,55 @@
+pkgname=ds-agent
+pkgver=0.1.0a1
+pkgrel=1
+pkgdesc="Day Sleep AI agent"
+arch=('x86_64')
+url="https://github.com/fm-elpac/ds-agent"
+license=('MIT')
+depends=('systemd>=260.1'
+         'deno>=2.7.14'
+         'nodejs>=25.9.0'
+         'pnpm>=10.33.0')
+optdepends=()
+source=('ds-agent-src.tar')
+sha256sums=('SKIP')
+
+build() {
+  cd "${srcdir}"
+}
+
+package() {
+  cd "${srcdir}"
+
+  # /etc/ds-agent/dsd.json
+  install -Dm644 -t "${pkgdir}/etc/ds-agent/" dsd/dsd.json
+
+  # /usr/bin/ds-agent
+  install -Dm755 -t "${pkgdir}/usr/bin/"  cli/ds-agent
+
+  # /usr/lib/ds-agent/
+  # TODO
+  install -Dm644 -t "${pkgdir}/usr/lib/ds-agent/" cli/dsd.js
+  install -Dm644 -t "${pkgdir}/usr/lib/ds-agent/" cli/model-proxy.js
+  install -Dm644 -t "${pkgdir}/usr/lib/ds-agent/" cli/master-agent.js
+  install -Dm644 -t "${pkgdir}/usr/lib/ds-agent/agent/" cli/agent.js
+
+  # /usr/lib/sysusers.d/ds-agent.conf
+  install -Dm644 -t "${pkgdir}/usr/lib/sysusers.d/" dsd/ds-agent.conf
+  # /usr/lib/systemd/system/
+  install -Dm644 -t "${pkgdir}/usr/lib/systemd/system/" dsd/dsd.service
+  # /usr/lib/systemd/user/
+  install -Dm644 -t "${pkgdir}/usr/lib/systemd/user/" model-proxy/ds-model-proxy.service
+  install -Dm644 -t "${pkgdir}/usr/lib/systemd/user/" master-agent/ds-master-agent.service
+
+  # /usr/src/ds-agent/
+  # /usr/src/ds-agent/doc/agent/
+  mkdir -p "${pkgdir}/usr/src/ds-agent/"
+  cp "${srcdir}/ds-agent-src.tar" "${pkgdir}/usr/src/ds-agent/"
+  cd "${pkgdir}/usr/src/ds-agent/" && tar -xvf ds-agent-src.tar && rm ds-agent-src.tar
+  cd "${srcdir}"
+
+  # TODO
+  # /var/lib/ds-agent/
+  # /var/cache/ds-agent/
+  # /var/log/ds-agent/
+}

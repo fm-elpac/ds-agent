@@ -1,0 +1,15 @@
+[Unit]
+Description=Example user service for ds-agent regular agent
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/deno run -A /usr/lib/ds-agent/agent/agent.js --stdout
+
+WorkingDirectory=%h/tmp-dir-1/
+
+Environment="DS_AGENT_MODEL_PROXY=http://localhost:6666"
+Environment="DS_AGENT_MODEL_PROXY_USERPASS=aa:XXX"
+Environment="DS_AGENT_DIR=/home/ai1/example-agent-1-boot/"
+
+[Install]
+WantedBy=default.target
