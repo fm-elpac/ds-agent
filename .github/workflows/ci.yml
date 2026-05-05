@@ -48,7 +48,7 @@ jobs:
           sudo pacman -Syu --noconfirm
       - run: |
           toolbox run -c arch \
-          sudo pacman -S --noconfirm deno nodejs pnpm
+          sudo pacman -S --noconfirm deno podman git nodejs pnpm python uv
       - run: |
           cd aur && \
           toolbox run -c arch \
