@@ -1,15 +1,43 @@
 {
   "api_key": {
-    "deepseek": "your-deepseek-api-key-here"
+    "deepseek": "your-deepseek-api-key-here",
+    "ollama_gemma4:26b": "key ?"
   },
+  "model_default": "ollama_gemma4:26b",
   "model": {
     "deepseek": {
       "url": "https://api.deepseek.com",
+      "type": "openai",
       "args": {
         "model": "deepseek-v4-flash",
         "temperature": 0.7,
         "max_tokens": 32768
       }
+    },
+    "ollama_gemma4:26b": {
+      "url": "http://localhost:11434",
+      "type": "ollama",
+      "args": {
+        "model": "gemma4:26b"
+      }
+    },
+    "ollama_gemma4:e4b": {
+      "url": "http://localhost:11434",
+      "type": "ollama",
+      "args": {
+        "model": "gemma4:e4b"
+      }
+    },
+    "ollama_qwen3.6:35b": {
+      "url": "http://localhost:11434",
+      "type": "ollama",
+      "args": {
+        "model": "qwen3.6:35b"
+      }
     }
+  },
+  "server": {
+    "port": 6666,
+    "hostname": "localhost"
   }
 }

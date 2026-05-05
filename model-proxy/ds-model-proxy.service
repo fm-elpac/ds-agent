@@ -1,0 +1,16 @@
+[Unit]
+Description=ds-agent model-proxy
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/deno run --allow-env --allow-net --allow-read --allow-write=. /usr/lib/ds-agent/model-proxy.js
+
+WorkingDirectory=%h/.config/ds-agent/model-proxy/
+
+Restart=always
+RestartSec=1
+RestartSteps=4
+RestartMaxDelaySec=20
+
+[Install]
+WantedBy=default.target

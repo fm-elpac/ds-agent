@@ -1,0 +1,18 @@
+[Unit]
+Description=ds-agent master-agent
+
+Requires=ds-model-proxy.service
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/deno run -A /usr/lib/ds-agent/master-agent.js
+
+WorkingDirectory=%h/ds-agent/master/
+
+Restart=always
+RestartSec=2
+RestartSteps=4
+RestartMaxDelaySec=120
+
+[Install]
+WantedBy=default.target

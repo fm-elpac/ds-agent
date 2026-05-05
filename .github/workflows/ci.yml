@@ -22,6 +22,14 @@ jobs:
 
       - run: deno fmt --check
 
+      # ts
+      - run: cd model-proxy && deno check src
+      - run: cd agent && deno check src
+
+      # bundle
+      - run: cd model-proxy && deno bundle src/main.ts -o ../cli/model-proxy.js
+      - run: cd agent && deno bundle src/main.ts -o ../cli/agent.js
+
       # TODO
 
       # toolbox

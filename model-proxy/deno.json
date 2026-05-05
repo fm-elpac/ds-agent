@@ -1,0 +1,10 @@
+{
+  "imports": {
+    "@std/crypto": "jsr:@std/crypto@^1.1.0",
+    "@std/encoding": "jsr:@std/encoding@^1.0.10",
+    "@std/path": "jsr:@std/path@^1.1.4",
+    "@std/ulid": "jsr:@std/ulid@^1.0.0",
+    "ollama": "npm:ollama@^0.6.3",
+    "openai": "npm:openai@^6.35.0"
+  }
+}
