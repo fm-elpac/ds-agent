@@ -265,8 +265,7 @@ child process 运行.
 
 这种方式的主要缺点是, 新的 agent 无法重启自身.
 
-这种方式的主要优点是, 方便使用 stdin/stdout 在 agent 之间发送消息. (TODO
-此功能待实现)
+这种方式的主要优点是, 方便使用 stdin/stdout 在 agent 之间发送消息.
 
 ### 5.2 作为 systemd user service 启动
 
