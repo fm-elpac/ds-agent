@@ -1,4 +1,22 @@
-# 白眠 (Day Sleep) AI 助手 (ds-agent) 架构设计
+# 白眠 (Day Sleep) AI 助手 (ds-agent) 整体架构
+
+## 设计哲学 (指导思想)
+
+- **提供 机制, 而非 策略**: 白眠 提供 (固定/底层) 机制, AI (大模型) 提供
+  (动态/可持续优化) 策略.
+
+- **邀请 AI "住进" 虚拟机**: 虚拟机 提供强隔离/安全, 虚拟机内部给 AI
+  高灵活/权限.
+
+  KVM 嵌套虚拟化 / podman 容器 等 虚拟化技术, 可以大量使用.
+
+  口号: 给 AI 以信任, 给 AI 以工具, 给 AI 以软件.
+
+- 不要另搞一套, 充分融入现有的 Linux (UNIX) 软件系统.
+
+## 顶级节点
+
+(top level node) 虚拟机.
 
 TODO
 
@@ -6,7 +24,7 @@ TODO
 
 ds-agent 系统中有以下种类的 agent:
 
-- **顶级助手** (master agent): 执行系统管理任务 (用于管理 ds-agent 系统自身).
+- **顶级助手** (master agent): 执行系统管理任务 (用于管理 ds-agent 系统自己).
 
   代码由 ds-agent 软件包提供.
 
@@ -18,7 +36,31 @@ ds-agent 系统中有以下种类的 agent:
 
   代码由 AI 写出.
 
-TODO
+## 依赖软件
+
+这些软件被 `ds-agent` 软件包列为依赖, 所以应该已经在系统上安装了:
+
+- `systemd`
+- `deno`
+- `podman`
+- `git`
+- `curl`
+- ssh
+- `nodejs`
+- `pnpm`
+- `python`
+- `uv`
+- `sqlite`
+- `rsync`
+- `chromium`
+- `noto-fonts`
+- `fish`
+
+## 可选模块
+
+- md-net: 超网文档库
+
+  文档位于: `/usr/src/ds-agent/md-net/README.md`
 
 ## 外部数据备份系统
 
@@ -36,5 +78,7 @@ TODO
 使用 胖喵必快 (`pmbs` + `rsync`) 系统: <https://github.com/fm-elpac/pmbs>
 
 底层基于 btrfs 快照, 在另一个 虚拟机 (服务器) 中专门进行定期数据备份.
+
+---
 
 TODO
